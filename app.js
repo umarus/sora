@@ -29,7 +29,7 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/products', products.findall);
+app.get('/products/:lmt', products.findall);
 app.get('/byone/:name', products.findByName);
 
 app.get('/bycorp/:society', products.findBySociety);
