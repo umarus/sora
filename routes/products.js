@@ -21,8 +21,9 @@ console.log("not exist database");
 });
 //lister tous les produits 
 exports.findall =  function(req,res){
+	var limit = req.params.limit;
 db.collection('product',function(err,collection){
-collection.find().sort({prix: 1}).toArray(function(err,items){
+collection.find().limit(limit).sort({prix: 1}).toArray(function(err,items){
 
 	//res.render('index',{'items':items});
 res.send(items);
