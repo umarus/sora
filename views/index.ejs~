@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+   
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <table>
+ <% items.forEach(function(item){%>                                  
+            <tr>                                                                
+               <td><%= item.name%></td>                                         
+               <td><%=item.quantite%></td>                                        
+               <td><%=item.marque%></td> 
+               <td><%=item.societe%></td>  
+               <td><img src="<%=item.img%>" width="20" height="10"/></td>  
+               <td><%=item.prix%></td>                                                     
+            </tr>                                                               
+            <%})%>                   
+</table>
+  </body>
+</html>
