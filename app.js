@@ -7,7 +7,7 @@ var routes = require('./routes');
 var products = require('./routes/products');
 var http = require('http');
 var path = require('path');
-
+var params = require('express-params');
 var app = express();
 params.extend(app);
 
