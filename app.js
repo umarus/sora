@@ -9,6 +9,8 @@ var http = require('http');
 var path = require('path');
 
 var app = express();
+params.extend(app);
+
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -28,8 +30,8 @@ app.set('images', __dirname + '/public/images');
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
-
-app.get('/products/:lmt(\\d+)/', products.findall);
+app.param('id', Number);
+app.get('/products/:lmt', products.findall);
 app.get('/byone/:name', products.findByName);
 
 app.get('/bycorp/:society', products.findBySociety);
