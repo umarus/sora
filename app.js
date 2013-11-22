@@ -28,7 +28,7 @@ app.set('images', __dirname + '/public/images');
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
-app.param('lmt', /^\d+$/);
+
 app.get('/products/:lmt', products.findall);
 app.get('/byone/:name', products.findByName);
 

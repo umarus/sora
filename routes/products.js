@@ -23,7 +23,7 @@ console.log("not exist database");
 exports.findall =  function(req,res){
 	var  lmt = req.params.lmt;
 db.collection('product',function(err,collection){
-collection.find().limit(lmt).sort({prix: 1}).toArray(function(err,items){
+collection.find().sort({prix: 1}).limit(lmt).toArray(function(err,items){
 
 	//res.render('index',{'items':items});
 res.send(items);
