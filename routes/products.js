@@ -47,7 +47,7 @@ collection.find({name: name}).sort({prix: 1}).toArray(function(err,items){
 exports.findBySociety = function(req,res){
  var  society= req.params.society;
 db.collection('product',function(err,collection){
-collection.find({societe: society}).sort({prix: 1}).toArray(function(err,items){
+collection.find({societe:{name:society}}).sort({prix: 1}).toArray(function(err,items){
 
 	res.send(items);
 });
