@@ -33,7 +33,7 @@ if ('development' == app.get('env')) {
 }
 
 
-});*/
+
 app.param('lmt', Number);
 app.param('categorie', String);
 
