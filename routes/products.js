@@ -1,55 +1,55 @@
-var mongo = require('mongodb');
-var Server = mongo.Server,
-    Db = mongo.Db,
-    BSON = mongo.BSONPure;
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/sandaga',function(err){
 
-
-                                                                                
-var server = new Server('localhost',27017,{auto_reconnect :true});              
-db =new Db('tiledb',server);                                                    
-                                                                                
-db.open(function(err,db){                                                       
-if(!err){                                                                       
-console.log("connect to 'tiledb database");                                    
-db.collection('product',{safe:true},function(err,collection){                     
-if(err){                                                                        
-console.log("not exist database");                                              
-                                                            
-}                      
+	if(err) {throw err};
 });
+	var societeschema = new mongoose.Schema({
+
+		name : { type : String},
+		address: String ,
+		img: String,
+		prix : Number
+	});
+	var produitschema = new mongoose.Schema({
+         libele : String,
+         caracteristic :String ,
+         img:   String,
+         size : String,
+         boutik :[societeschema]
+          
+	});
+	//mongoose.model(societeschema,'societeschema');
+	//mongoose.model(produitschema,'produitschema');
+
+var corporate = mongoose.model('societe',societeschema);
+var product = mongoose.model('produit',produitschema);
+
+
+exports.findall=function(req,res){
+
+     var lmt = req.params.lmt;
+
+   var query =   product.find({}).limit(lmt);
+   
+   query.exec(function(err,result){
+
+
+        res.send(result);
+
+   });
+
 }
-});
-//lister tous les produits 
-exports.findall =  function(req,res){
-	var  lmt = req.params.lmt;
-db.collection('product',function(err,collection){
-collection.find().sort({prix: 1}).limit(lmt).toArray(function(err,items){
+exports.findByCategories = function(req,res){
 
-	//res.render('index',{'items':items});
-res.send(items);
-});
-});
-};
-//chercher les produits par nom
+  var lmt = req.params.lmt;
+  var catg =req.params.categorie;
+  var query = product.find({categorie:catg}).limit(lmt);
+  query.exec(function(err,result){
+  	
 
-exports.findByName = function(req,res){
- var  name= req.params.name;
-db.collection('product',function(err,collection){
-collection.find({name: name}).sort({prix: 1}).toArray(function(err,items){
+   res.send(result);
 
-	res.send(items);
-});
-});
-};
+  });
 
-//chercher les produits par  society
 
-exports.findBySociety = function(req,res){
- var  society= req.params.society;
-db.collection('product',function(err,collection){
-collection.find({societe:{name:society}}).sort({prix: 1}).toArray(function(err,items){
-
-	res.send(items);
-});
-});
-};
+}
